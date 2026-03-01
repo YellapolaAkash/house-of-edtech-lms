@@ -6,9 +6,10 @@ import {
   TouchableOpacity,
   StyleSheet,
   Alert,
-} from "react-native";
+} from "react-native"; // removed Image import because logo missing
 import { registerUser } from "../../src/services/auth.service";
 import { useRouter } from "expo-router";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function RegisterScreen() {
   const router = useRouter();
@@ -56,32 +57,42 @@ export default function RegisterScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Create Account</Text>
+      <View style={styles.card}>
+        <Text style={styles.title}>Create Account</Text>
 
-      <TextInput
-        placeholder="Username"
-        style={styles.input}
-        value={username}
-        onChangeText={setUsername}
-        autoCapitalize="none"
-      />
+      <View style={styles.inputWrapper}>
+        <Ionicons name="person-outline" size={20} color="#888" style={styles.inputIcon} />
+        <TextInput
+          placeholder="Username"
+          style={styles.input}
+          value={username}
+          onChangeText={setUsername}
+          autoCapitalize="none"
+        />
+      </View>
 
-      <TextInput
-        placeholder="Email"
-        style={styles.input}
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
-        autoCapitalize="none"
-      />
+      <View style={styles.inputWrapper}>
+        <Ionicons name="mail-outline" size={20} color="#888" style={styles.inputIcon} />
+        <TextInput
+          placeholder="Email"
+          style={styles.input}
+          value={email}
+          onChangeText={setEmail}
+          keyboardType="email-address"
+          autoCapitalize="none"
+        />
+      </View>
 
-      <TextInput
-        placeholder="Password"
-        style={styles.input}
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-      />
+      <View style={styles.inputWrapper}>
+        <Ionicons name="lock-closed-outline" size={20} color="#888" style={styles.inputIcon} />
+        <TextInput
+          placeholder="Password"
+          style={styles.input}
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+        />
+      </View>
 
       <TouchableOpacity
         style={styles.button}
@@ -93,9 +104,12 @@ export default function RegisterScreen() {
         </Text>
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => router.push("/auth/login")}>
-        <Text style={styles.link}>Already have an account? Login</Text>
+      <TouchableOpacity onPress={() => router.push("/auth/login")} style={styles.linkWrapper}>
+        <Text style={styles.link}>
+          Already have an account? <Text style={styles.linkHighlight}>Login</Text>
+        </Text>
       </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -103,22 +117,45 @@ export default function RegisterScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 24,
+    backgroundColor: "#f0f4f8",
     justifyContent: "center",
+    alignItems: "center",
+    padding: 20,
+  },
+  card: {
+    width: "100%",
     backgroundColor: "#fff",
+    borderRadius: 20,
+    padding: 30,
+    elevation: 8,
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 4 },
+    shadowRadius: 10,
   },
   title: {
     fontSize: 28,
     fontWeight: "700",
     marginBottom: 32,
     textAlign: "center",
+    color: "#2563eb",
   },
-  input: {
+  inputWrapper: {
+    flexDirection: "row",
+    alignItems: "center",
     borderWidth: 1,
     borderColor: "#ddd",
     borderRadius: 10,
-    padding: 14,
     marginBottom: 16,
+    paddingHorizontal: 12,
+    backgroundColor: "#fafafa",
+  },
+  inputIcon: {
+    marginRight: 8,
+  },
+  input: {
+    flex: 1,
+    height: 48,
     fontSize: 16,
   },
   button: {
@@ -133,10 +170,16 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "600",
   },
-  link: {
+  linkWrapper: {
     marginTop: 20,
-    textAlign: "center",
+    alignItems: "center",
+  },
+  link: {
+    color: "#444",
+    fontSize: 14,
+  },
+  linkHighlight: {
     color: "#2563EB",
-    fontSize: 15,
+    fontWeight: "700",
   },
 });
