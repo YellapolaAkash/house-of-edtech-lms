@@ -17,7 +17,6 @@ export const useAuthStore = create<AuthState>()((set) => ({
   token: null,
   isAuthenticated: false,
 
-  // ✅ LOGIN
   login: async (username: string, password: string) => {
     const response = await loginUser({ username, password });
 
@@ -31,7 +30,6 @@ export const useAuthStore = create<AuthState>()((set) => ({
     });
   },
 
-  // ✅ LOGOUT
   logout: async () => {
     await SecureStore.deleteItemAsync("token");
 
@@ -42,7 +40,6 @@ export const useAuthStore = create<AuthState>()((set) => ({
     });
   },
 
-  // ✅ AUTO LOGIN CHECK (IMPORTANT FOR REQUIREMENT)
   checkAuth: async () => {
     const storedToken = await SecureStore.getItemAsync("token");
 

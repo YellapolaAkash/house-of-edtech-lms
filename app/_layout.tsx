@@ -28,17 +28,17 @@ function AuthWrapper({
   isAuthenticated: boolean;
   pathname: string;
 }) {
-  // 🚫 If not logged in → redirect to login
+
   if (!isAuthenticated && !pathname.startsWith("/auth")) {
     return <Redirect href="/auth/login" />;
   }
 
-  // ✅ If logged in → prevent going back to auth screens
+ 
   if (isAuthenticated && pathname.startsWith("/auth")) {
     return <Redirect href="/(tabs)/courses" />;
   }
 
-  // 🔥 Allow everything else
+
   return (
     <Stack
       screenOptions={{

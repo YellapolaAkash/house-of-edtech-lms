@@ -56,6 +56,13 @@ export default function TabsLayout() {
           ),
         }}
       />
+
+      <Tabs.Screen
+        name="enrolled"
+        options={{
+          href: null,
+        }}
+      />
      
     </Tabs>
   );
